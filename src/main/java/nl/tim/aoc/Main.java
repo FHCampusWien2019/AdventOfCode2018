@@ -1,5 +1,8 @@
 package nl.tim.aoc;
 
+import nl.tim.aoc.day1.Day1Challenge1;
+import nl.tim.aoc.day1.Day1Challenge2;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,7 +45,7 @@ public class Main
             challenge.prepare();
 
             // Run and print
-            String result = challenge.run();
+            Object result = challenge.run();
             long end = System.currentTimeMillis();
 
             System.out.printf("Challenge result (in %s ms): %s\n", end - start, result);
@@ -51,7 +54,8 @@ public class Main
 
     private static void registerChallenges()
     {
-
+        challenges.put("1-1", new Day1Challenge1());
+        challenges.put("1-2", new Day1Challenge2());
     }
 
     public static List<String> readFile(String fileName)
