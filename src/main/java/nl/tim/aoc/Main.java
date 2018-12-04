@@ -2,6 +2,8 @@ package nl.tim.aoc;
 
 import nl.tim.aoc.day1.Day1Challenge1;
 import nl.tim.aoc.day1.Day1Challenge2;
+import nl.tim.aoc.day4.Day4Challenge1;
+import nl.tim.aoc.day4.Day4Challenge2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,6 +58,8 @@ public class Main
     {
         challenges.put("1-1", new Day1Challenge1());
         challenges.put("1-2", new Day1Challenge2());
+        challenges.put("4-1", new Day4Challenge1());
+        challenges.put("4-2", new Day4Challenge2());
     }
 
     public static List<String> readFile(String fileName)

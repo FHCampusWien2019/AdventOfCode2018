@@ -7,17 +7,18 @@ import java.util.List;
 
 public class Day1Challenge1 extends Challenge
 {
+    private List<String> numbers;
+
     @Override
     public void prepare()
     {
-
+        numbers = Main.readFile("1/1.txt");
     }
 
     @Override
     public Object run()
     {
         int res = 0;
-        List<String> numbers = Main.readFile("1/1.txt");
 
         for (String s : numbers) {
             res += Integer.valueOf(s);

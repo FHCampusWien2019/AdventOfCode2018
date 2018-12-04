@@ -9,17 +9,18 @@ import java.util.Set;
 
 public class Day1Challenge2 extends Challenge
 {
+    private List<String> numbers;
+
     @Override
     public void prepare()
     {
-
+        numbers = Main.readFile("1/1.txt");
     }
 
     @Override
     public Object run()
     {
         Set<Integer> seen = new HashSet<>();
-        List<String> numbers = Main.readFile("1/1.txt");
         int current = 0;
 
         while (true)
