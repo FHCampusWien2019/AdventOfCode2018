@@ -45,16 +45,16 @@ public class Main
             }
 
             // Set timer
-            long start = System.currentTimeMillis();
+            long start = System.nanoTime();
 
             // Run preparations if any
             challenge.prepare();
 
             // Run and print
             Object result = challenge.run();
-            long end = System.currentTimeMillis();
+            long end = System.nanoTime();
 
-            System.out.printf("Challenge result (in %s ms): %s\n", end - start, result);
+            System.out.printf("Challenge result (in %s ms): %s\n", (end - start) / 1000000, result);
         }
     }
 

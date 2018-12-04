@@ -56,26 +56,4 @@ public class Day2Challenge2 extends Challenge
 
         return null;
     }
-
-    /*public int getDiff(String s1, String s2)
-    {
-        int diff = 0;
-
-        for (int i = 0; i < s1.length(); i++)
-        {
-            char a = s1.charAt(i);
-            char b = s2.charAt(i);
-
-            if (a != b){
-                diff += 1;
-            }
-
-            // If the diff is two we can stop, will not be our match
-            if (diff >= 2){
-                return 2;
-            }
-        }
-
-        return diff;
-    }*/
 }
