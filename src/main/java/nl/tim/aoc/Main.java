@@ -2,6 +2,8 @@ package nl.tim.aoc;
 
 import nl.tim.aoc.day1.Day1Challenge1;
 import nl.tim.aoc.day1.Day1Challenge2;
+import nl.tim.aoc.day3.Day3Challenge1;
+import nl.tim.aoc.day3.Day3Challenge2;
 import nl.tim.aoc.day4.Day4Challenge1;
 import nl.tim.aoc.day4.Day4Challenge2;
 
@@ -58,6 +60,8 @@ public class Main
     {
         challenges.put("1-1", new Day1Challenge1());
         challenges.put("1-2", new Day1Challenge2());
+        challenges.put("3-1", new Day3Challenge1());
+        challenges.put("3-2", new Day3Challenge2());
         challenges.put("4-1", new Day4Challenge1());
         challenges.put("4-2", new Day4Challenge2());
     }
