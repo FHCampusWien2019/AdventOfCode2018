@@ -10,7 +10,7 @@ public class Day5Challenge2 extends Challenge
     @Override
     public void prepare()
     {
-        input = new StringBuilder(Main.readFile("5/1.txt").get(0));
+        input = Day5Challenge1.reactPolymers(new StringBuilder(Main.readFile("5/1.txt").get(0)));
     }
 
     @Override

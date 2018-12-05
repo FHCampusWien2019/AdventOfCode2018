@@ -36,7 +36,7 @@ public class Day5Challenge1 extends Challenge
             {
                 input.deleteCharAt(i + 1);
                 input.deleteCharAt(i);
-                i = 0;
+                i = 0 > i - 1 ? 0 : i - 1;
 
                 continue;
             }
