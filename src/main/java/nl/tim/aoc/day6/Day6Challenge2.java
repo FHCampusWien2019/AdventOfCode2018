@@ -3,11 +3,14 @@ package nl.tim.aoc.day6;
 import nl.tim.aoc.Challenge;
 import nl.tim.aoc.Main;
 
+import java.awt.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Day6Challenge2 extends Challenge
 {
-    private List<String> read;
+    private Set<Point> points;
     private int startX = Integer.MIN_VALUE;
     private int stopX = Integer.MAX_VALUE;
     private int startY = Integer.MIN_VALUE;
@@ -15,7 +18,8 @@ public class Day6Challenge2 extends Challenge
 
     @Override
     public void prepare() {
-        read = Main.readFile("6.txt");
+        List<String> read = Main.readFile("6.txt");
+        points = new HashSet<>();
         int minX = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE;
@@ -30,6 +34,8 @@ public class Day6Challenge2 extends Challenge
             maxX = x > maxX ? x : maxX;
             minY = y < minY ? y : minY;
             maxY = y > maxY ? y : maxY;
+
+            points.add(new Point(x, y));
         }
 
         startX = minX - (10000 - (maxX - minX)) / (read.size() - 1);
@@ -48,11 +54,11 @@ public class Day6Challenge2 extends Challenge
             {
                 int dist = 0;
 
-                for (String s : read)
+                for (Point p : points)
                 {
-                    int i = Integer.valueOf(s.split(",")[0]);
-                    int j = Integer.valueOf(s.split(",")[1].trim());
-                    dist += (x - i < 0 ? i - x : x - i) + (y - j < 0 ? j - y : y - j);
+                    int i = (int) p.getX();
+                    int j = (int) p.getY();
+                    dist += Math.abs(x - i) + Math.abs(y - j);
 
                     if (dist > 10000)
                     {

@@ -19,8 +19,24 @@ public class Day6Challenge1 extends Challenge
     @Override
     public void prepare() {
         read = Main.readFile("6.txt");
+    }
+
+    private void set(int x, int y, String s)
+    {
+        field[x + y * w] = s;
+    }
+
+    private String get(int x, int y)
+    {
+        return field[x + y * w];
+    }
+
+    @Override
+    public Object run() {
+        HashMap<String, Integer> area = new HashMap<>();
         HashMap<Integer, Integer> coords = new HashMap<>();
 
+        // Setting up field
         for (String s : read){
             coords.put(Integer.valueOf(s.split(",")[0]), Integer.valueOf(s.split(",")[1].trim()));
         }
@@ -46,21 +62,6 @@ public class Day6Challenge1 extends Challenge
             field[y * w] = "INF";
             field[maxX - minX + y * w] = "INF";
         }
-    }
-
-    private void set(int x, int y, String s)
-    {
-        field[x + y * w] = s;
-    }
-
-    private String get(int x, int y)
-    {
-        return field[x + y * w];
-    }
-
-    @Override
-    public Object run() {
-        HashMap<String, Integer> area = new HashMap<>();
 
         // Populate
         for (String s : read) {
