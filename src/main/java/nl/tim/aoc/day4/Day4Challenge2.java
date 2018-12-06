@@ -14,7 +14,7 @@ public class Day4Challenge2 extends Challenge
     @Override
     public void prepare() {
         data = new HashMap<>();
-        read = Main.readFile("4/1.txt");
+        read = Main.readFile("4.txt");
 
         read.sort(new Day4Challenge1.Comp());
     }

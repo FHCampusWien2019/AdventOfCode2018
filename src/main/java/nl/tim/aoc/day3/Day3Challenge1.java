@@ -14,7 +14,7 @@ public class Day3Challenge1 extends Challenge
     @Override
     public void prepare() {
         field = new int[1000*1000];
-        read = Main.readFile("3/1.txt");
+        read = Main.readFile("3.txt");
     }
 
     @Override

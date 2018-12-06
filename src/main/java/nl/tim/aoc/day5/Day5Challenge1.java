@@ -10,7 +10,7 @@ public class Day5Challenge1 extends Challenge
     @Override
     public void prepare()
     {
-        input = new StringBuilder(Main.readFile("5/1.txt").get(0));
+        input = new StringBuilder(Main.readFile("5.txt").get(0));
     }
 
     @Override

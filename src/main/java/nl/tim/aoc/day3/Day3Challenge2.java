@@ -17,7 +17,7 @@ public class Day3Challenge2 extends Challenge
     public void prepare() {
         field = new int[1000*1000];
         invalid = new HashSet<>();
-        read = Main.readFile("3/1.txt");
+        read = Main.readFile("3.txt");
     }
 
     @Override

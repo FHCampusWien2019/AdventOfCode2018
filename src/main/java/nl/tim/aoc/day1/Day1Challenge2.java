@@ -14,7 +14,7 @@ public class Day1Challenge2 extends Challenge
     @Override
     public void prepare()
     {
-        numbers = Main.readFile("1/1.txt");
+        numbers = Main.readFile("1.txt");
     }
 
     @Override
