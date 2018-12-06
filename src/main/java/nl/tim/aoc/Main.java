@@ -54,11 +54,17 @@ public class Main
             // Run preparations if any
             challenge.prepare();
 
+            // Set timer after IO
+            long io = System.nanoTime();
+
             // Run and print
             Object result = challenge.run();
             long end = System.nanoTime();
 
-            System.out.printf("Challenge result (in %s ms): %s\n", (end - start) / 1000000, result);
+            System.out.printf("Challenge result (in %s ms or %s ms without IO): %s\n",
+                    (end - start) / 1000000,
+                    (end - io) / 1000000,
+                    result);
         }
     }
 

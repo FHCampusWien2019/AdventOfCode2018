@@ -10,8 +10,7 @@ import java.util.List;
 public class Day6Challenge1 extends Challenge
 {
     private String[] field;
-    private int offsetX;
-    private int offsetY;
+
     private int w;
     private int h;
 
@@ -26,43 +25,37 @@ public class Day6Challenge1 extends Challenge
             coords.put(Integer.valueOf(s.split(",")[0]), Integer.valueOf(s.split(",")[1].trim()));
         }
 
-        //int minX = Collections.min(coords.keySet()) - diff;
-        int maxX = Collections.max(coords.keySet()) + 1;
-        //int minY = Collections.min(coords.values()) - diff;
-        int maxY = Collections.max(coords.values()) + 1;
+        int minX = Collections.min(coords.keySet());
+        int maxX = Collections.max(coords.keySet());
+        int minY = Collections.min(coords.values());
+        int maxY = Collections.max(coords.values());
 
-        offsetX = 0;
-        offsetY = 0;
-        w = maxX;
-        h = maxY;
-        field =  new String[maxX * maxY];
-        System.out.println(field.length);
+        w = maxX - minX + 2;
+        h = maxY - minY + 2;
 
-        for (int x = 0; x < maxX; x++)
+        field =  new String[(maxX - minX + 2) * (maxY - minY + 2)];
+
+        for (int x = 0; x < w; x++)
         {
             field[x] = "INF";
-            field[x + (maxY - 1) * w] = "INF";
-            //set(x, maxY - 1, "INF");
+            field[x + (maxY - minY) * w] = "INF";
         }
 
-        for (int y = 0; y < maxX; y++)
+        for (int y = 0; y < h; y++)
         {
             field[y * w] = "INF";
-            field[maxX - 1 + y * w] = "INF";
-
-            //set(0, y, "INF");
-            //set(maxX - 1, y, "INF");
+            field[maxX - minX + y * w] = "INF";
         }
     }
 
-    public void set(int x, int y, String s)
+    private void set(int x, int y, String s)
     {
-        field[(x + offsetX) + (y + offsetY) * w] = s;
+        field[x + y * w] = s;
     }
 
-    public String get(int x, int y)
+    private String get(int x, int y)
     {
-        return field[(x + offsetX) + (y + offsetY) * w];
+        return field[x + y * w];
     }
 
     @Override
@@ -70,41 +63,33 @@ public class Day6Challenge1 extends Challenge
         HashMap<String, Integer> area = new HashMap<>();
 
         // Populate
-        for (int ii = 0; ii < read.size(); ii++)
-        {
-            String s = read.get(ii);
+        for (String s : read) {
             int x = Integer.valueOf(s.split(",")[0]);
             int y = Integer.valueOf(s.split(",")[1].trim());
 
             area.put(s, 0);
 
-            for (int i = 0; i < w; i++)
-            {
-                for (int j = 0; j < h; j++)
-                {
+            for (int i = 0; i < w; i++) {
+                for (int j = 0; j < h; j++) {
                     String loc = get(i, j);
-                    //System.out.println(loc);
+
                     int dist = (x - i < 0 ? i - x : x - i) + (y - j < 0 ? j - y : y - j);
 
-                    if (loc == null || loc.equals(""))
-                    {
+                    if (loc == null || loc.equals("")) {
                         set(i, j, s + "&" + dist);
                         continue;
                     }
 
-                    if (loc.equals("INF"))
-                    {
+                    if (loc.equals("INF")) {
                         set(i, j, s + "&" + dist + "&INF");
                         continue;
                     }
 
                     int otherDist = Integer.valueOf(loc.split("&")[1]);
 
-                    if (otherDist == dist)
-                    {
+                    if (otherDist == dist) {
                         set(i, j, s + "&" + dist + "&TIE" + (loc.contains("INF") ? "&INF" : ""));
-                    } else if (dist < otherDist)
-                    {
+                    } else if (dist < otherDist) {
                         set(i, j, s + "&" + dist + (loc.contains("INF") ? "&INF" : ""));
                     }
                 }
@@ -116,7 +101,7 @@ public class Day6Challenge1 extends Challenge
         {
             for (int y = 0; y < h; y++)
             {
-                String loc = get(x, y);
+                String loc = field[x + y * w];
                 String point = loc.split("&")[0];
 
                 if (loc.contains("INF"))
