@@ -16,6 +16,8 @@ import nl.tim.aoc.day7.Day7Challenge1;
 import nl.tim.aoc.day7.Day7Challenge2;
 import nl.tim.aoc.day8.Day8Challenge1;
 import nl.tim.aoc.day8.Day8Challenge2;
+import nl.tim.aoc.day9.Day9Challenge1;
+import nl.tim.aoc.day9.Day9Challenge2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,6 +92,8 @@ public class Main
         challenges.put("7-2", new Day7Challenge2());
         challenges.put("8-1", new Day8Challenge1());
         challenges.put("8-2", new Day8Challenge2());
+        challenges.put("9-1", new Day9Challenge1());
+        challenges.put("9-2", new Day9Challenge2());
     }
 
     public static List<String> readFile(String fileName)
