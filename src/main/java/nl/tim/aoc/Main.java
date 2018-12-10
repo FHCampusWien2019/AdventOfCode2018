@@ -2,6 +2,7 @@ package nl.tim.aoc;
 
 import nl.tim.aoc.day1.Day1Challenge1;
 import nl.tim.aoc.day1.Day1Challenge2;
+import nl.tim.aoc.day10.Day10Challenge1;
 import nl.tim.aoc.day2.Day2Challenge1;
 import nl.tim.aoc.day2.Day2Challenge2;
 import nl.tim.aoc.day3.Day3Challenge1;
@@ -94,6 +95,8 @@ public class Main
         challenges.put("8-2", new Day8Challenge2());
         challenges.put("9-1", new Day9Challenge1());
         challenges.put("9-2", new Day9Challenge2());
+        challenges.put("10-1", new Day10Challenge1());
+        challenges.put("10-2", new Day10Challenge1());
     }
 
     public static List<String> readFile(String fileName)
