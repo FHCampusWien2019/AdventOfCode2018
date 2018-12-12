@@ -5,6 +5,8 @@ import nl.tim.aoc.day1.Day1Challenge2;
 import nl.tim.aoc.day10.Day10Challenge1;
 import nl.tim.aoc.day11.Day11Challenge1;
 import nl.tim.aoc.day11.Day11Challenge2;
+import nl.tim.aoc.day12.Day12Challenge1;
+import nl.tim.aoc.day12.Day12Challenge2;
 import nl.tim.aoc.day2.Day2Challenge1;
 import nl.tim.aoc.day2.Day2Challenge2;
 import nl.tim.aoc.day3.Day3Challenge1;
@@ -70,7 +72,7 @@ public class Main
             Object result = challenge.run();
             long end = System.nanoTime();
 
-            System.out.printf("Challenge result (in %s ms or %s ms without IO): %s\n",
+            System.out.printf("Challenge result (in %s ms or %s ms without IO+prep): %s\n",
                     (end - start) / 1000000,
                     (end - io) / 1000000,
                     result);
@@ -101,6 +103,8 @@ public class Main
         challenges.put("10-2", new Day10Challenge1());
         challenges.put("11-1", new Day11Challenge1());
         challenges.put("11-2", new Day11Challenge2());
+        challenges.put("12-1", new Day12Challenge1());
+        challenges.put("12-2", new Day12Challenge2());
     }
 
     public static List<String> readFile(String fileName)
