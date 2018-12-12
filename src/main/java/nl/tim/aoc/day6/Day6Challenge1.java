@@ -32,7 +32,7 @@ public class Day6Challenge1 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         HashMap<String, Integer> area = new HashMap<>();
         HashMap<Integer, Integer> coords = new HashMap<>();
 

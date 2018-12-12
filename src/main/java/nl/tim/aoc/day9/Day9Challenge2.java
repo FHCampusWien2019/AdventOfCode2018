@@ -15,7 +15,7 @@ public class Day9Challenge2 extends Challenge
     }
 
     @Override
-    public Object run() {
-        return base.run();
+    public Object run(String alternative) {
+        return base.run("default");
     }
 }

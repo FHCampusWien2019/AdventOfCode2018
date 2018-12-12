@@ -59,6 +59,41 @@ public class Main
                 continue;
             }
 
+            String alternativeMethod = "default";
+            Class<? extends Challenge> clazz = challenge.getClass();
+
+            // Check if challenge has an alternative solution
+            if (clazz.isAnnotationPresent(AlternativeMethod.class))
+            {
+                System.out.printf("This solution has alternative ways to handle this challenge.%n" +
+                        "Type the name of the alternative method, or 'default' to use the default method:%n" +
+                        " - default%n");
+
+                AlternativeMethod alternativeMethods = clazz.getAnnotation(AlternativeMethod.class);
+
+                selectMethod:
+                while (true)
+                {
+                    for (String alternative : alternativeMethods.alternatives())
+                    {
+                        System.out.printf(" - %s%n", alternative);
+                    }
+
+                    String in = scanner.nextLine();
+
+                    for (String alt : alternativeMethods.alternatives())
+                    {
+                        if (alt.equals(in) || in.equals("default"))
+                        {
+                            alternativeMethod = in;
+                            break selectMethod;
+                        }
+                    }
+
+                    System.out.println("Invalid method");
+                }
+            }
+
             // Set timer
             long start = System.nanoTime();
 
@@ -69,7 +104,7 @@ public class Main
             long io = System.nanoTime();
 
             // Run and print
-            Object result = challenge.run();
+            Object result = challenge.run(alternativeMethod);
             long end = System.nanoTime();
 
             System.out.printf("Challenge result (in %s ms or %s ms without IO+prep): %s\n",

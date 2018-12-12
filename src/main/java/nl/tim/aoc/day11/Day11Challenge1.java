@@ -1,7 +1,9 @@
 package nl.tim.aoc.day11;
 
+import nl.tim.aoc.AlternativeMethod;
 import nl.tim.aoc.Challenge;
 import nl.tim.aoc.Main;
+import nl.tim.aoc.day11.opencl.OpenCLHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /*
 Yet another disclaimer: I'm not that happy with this code, since it's basically an O(n^5) (it takes part two well over
-1 minute) solution that is a bit camouflaged by threading.
-After my midterms are over I will try to use OpenCL for the first time to maybe hide even more the fact that it's O(n^5).
-But before that I'll probably implement a summed area table
+1 minute) solution that is a bit camouflaged by threading. Will try to make this better after midterms.
  */
+@AlternativeMethod(alternatives = {"opencl"})
 public class Day11Challenge1 extends Challenge
 {
     private int gridSerial;
@@ -27,12 +28,29 @@ public class Day11Challenge1 extends Challenge
     }
 
     @Override
-    public Object run() {
-        populateField();
-
-        return calcLargestArea(3, 3);
+    public Object run(String alternative) {
+        if (alternative.equals("opencl"))
+        {
+            populateFieldOpenCL();
+            return calcLargestAreaOpenCL(3, 3);
+        } else
+        {
+            populateField();
+            return calcLargestArea(3, 3);
+        }
     }
 
+    protected void populateFieldOpenCL()
+    {
+        this.field = OpenCLHelper.getPowerLevels(this.gridSerial);
+    }
+
+    protected String calcLargestAreaOpenCL(int min, int max)
+    {
+        int[] maxArea = OpenCLHelper.getBestArea(this.field, min, max);
+
+        return maxArea[0] + "," + maxArea[1] + "," + maxArea[3];
+    }
 
     protected String calcLargestArea(int min, int max)
     {
@@ -113,8 +131,7 @@ public class Day11Challenge1 extends Challenge
     private int getPowerLevel(int x, int y)
     {
         int rackID = x + 11;
-        String powerLevel = "" + ((rackID * (y + 1) + gridSerial) * rackID) / 100;
 
-        return Integer.valueOf(powerLevel.substring(powerLevel.length() - 1)) - 5;
+        return ((((rackID * y + gridSerial) * rackID) / 100) % 10) - 5;
     }
 }

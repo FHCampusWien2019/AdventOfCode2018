@@ -18,7 +18,7 @@ public class Day7Challenge1 extends Challenge {
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         for (String s : read)
         {
             String before = s.split("\\s")[1];

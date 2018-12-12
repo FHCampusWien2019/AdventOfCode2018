@@ -19,12 +19,12 @@ public class Day7Challenge2 extends Challenge
         workers = new HashMap<>();
 
         base.prepare();
-        res = (String) base.run();
+        res = (String) base.run("default");
         done = new StringBuilder();
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         int count = 0;
 
         while (done.length() != res.length())

@@ -16,7 +16,7 @@ public class Day2Challenge1 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         int two = 0;
         int three = 0;
 

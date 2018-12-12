@@ -23,7 +23,7 @@ public class Day9Challenge1 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         int currentPoint = 1;
         int player = 0;
 

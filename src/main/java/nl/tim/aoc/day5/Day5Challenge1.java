@@ -14,7 +14,7 @@ public class Day5Challenge1 extends Challenge
     }
 
     @Override
-    public Object run()
+    public Object run(String alternative)
     {
         return reactPolymers(input).toString().length();
     }

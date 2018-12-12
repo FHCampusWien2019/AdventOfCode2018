@@ -18,7 +18,7 @@ public class Day1Challenge2 extends Challenge
     }
 
     @Override
-    public Object run()
+    public Object run(String alternative)
     {
         Set<Integer> seen = new HashSet<>();
         int current = 0;

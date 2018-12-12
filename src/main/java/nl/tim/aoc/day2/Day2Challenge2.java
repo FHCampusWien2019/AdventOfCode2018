@@ -16,7 +16,7 @@ public class Day2Challenge2 extends Challenge
     }
 
     @Override
-    public Object run()
+    public Object run(String alternative)
     {
         // Forgive me Robert, for I have sinned..
         for (String s : read)

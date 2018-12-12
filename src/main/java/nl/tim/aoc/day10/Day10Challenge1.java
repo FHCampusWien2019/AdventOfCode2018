@@ -19,7 +19,7 @@ public class Day10Challenge1 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         int i = 0;
         int maxWait = 125000;
         Scanner scanner = new Scanner(System.in);

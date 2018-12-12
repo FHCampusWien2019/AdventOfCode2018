@@ -16,7 +16,7 @@ public class Day8Challenge2 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         List<Integer> in = new ArrayList<>();
 
         for (String s : read.split("\\s"))

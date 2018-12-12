@@ -14,7 +14,7 @@ public class Day12Challenge2 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         return base.tickState(50000000000L);
     }
 }

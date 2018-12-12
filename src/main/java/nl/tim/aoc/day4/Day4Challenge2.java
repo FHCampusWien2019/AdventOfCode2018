@@ -20,7 +20,7 @@ public class Day4Challenge2 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         Day4Challenge1.populateHashMap(read, data);
 
         int currentGuard = -1;

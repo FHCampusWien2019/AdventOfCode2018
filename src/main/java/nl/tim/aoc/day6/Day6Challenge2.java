@@ -45,7 +45,7 @@ public class Day6Challenge2 extends Challenge
     }
 
     @Override
-    public Object run() {
+    public Object run(String alternative) {
         int count = 0;
 
         for (int x = startX; x <= stopX; x++)
