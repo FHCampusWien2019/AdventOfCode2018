@@ -2,6 +2,7 @@ package nl.tim.aoc.day11;
 
 import nl.tim.aoc.AlternativeMethod;
 import nl.tim.aoc.Challenge;
+import nl.tim.aoc.day11.opencl.OpenCLHelper;
 
 @AlternativeMethod(alternatives = {"opencl"})
 public class Day11Challenge2 extends Challenge {
@@ -18,8 +19,13 @@ public class Day11Challenge2 extends Challenge {
     public Object run(String alternative) {
         if (alternative.equals("opencl"))
         {
+            OpenCLHelper.setUpOpenCL();
             base.populateFieldOpenCL();
-            return base.calcLargestAreaOpenCL(1, 300);
+
+            String res = base.calcLargestAreaOpenCL(1, 300);
+
+            OpenCLHelper.tearDownOpenCL();
+            return res;
         } else
         {
             base.populateField();

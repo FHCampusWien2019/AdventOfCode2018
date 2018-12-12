@@ -31,8 +31,13 @@ public class Day11Challenge1 extends Challenge
     public Object run(String alternative) {
         if (alternative.equals("opencl"))
         {
+            OpenCLHelper.setUpOpenCL();
             populateFieldOpenCL();
-            return calcLargestAreaOpenCL(3, 3);
+
+            String res = calcLargestAreaOpenCL(3, 3);
+
+            OpenCLHelper.tearDownOpenCL();
+            return res;
         } else
         {
             populateField();

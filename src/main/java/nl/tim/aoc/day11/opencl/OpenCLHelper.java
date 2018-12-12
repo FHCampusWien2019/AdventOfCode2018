@@ -19,7 +19,7 @@ public class OpenCLHelper
     private static cl_context context;
     private static cl_command_queue commandQueue;
 
-    private static void setupOpenCL()
+    public static void setUpOpenCL()
     {
         // Enable exceptions and subsequently omit error checks in this sample
         CL.setExceptionsEnabled(true);
@@ -57,11 +57,17 @@ public class OpenCLHelper
         commandQueue = clCreateCommandQueueWithProperties(context, device, null, null);
     }
 
+    public static void tearDownOpenCL()
+    {
+        clReleaseCommandQueue(commandQueue);
+        clReleaseContext(context);
+    }
+
     // Unless you want your gpu drivers to crash you better make sure the arg is 300*300
     public static int[] getBestArea(int[] field, int startSearch, int endSearch)
     {
-        // Init OpenCl
-        setupOpenCL();
+        /*// Init OpenCl
+        setupOpenCL();*/
 
         int currentSize = startSearch;
         int[] resultArray = new int[300 * 300];
@@ -122,8 +128,6 @@ public class OpenCLHelper
                     maxValue[1] = i / 300;
                     maxValue[2] = resultArray[i];
                     maxValue[3] = currentSize;
-
-                    System.out.println("  Found new best area: " + maxValue[0] + "," + maxValue[1] + "," + maxValue[3]);
                 }
             }
 
@@ -135,28 +139,21 @@ public class OpenCLHelper
         clReleaseMemObject(memObjects[1]);
         clReleaseKernel(kernel);
         clReleaseProgram(program);
-        clReleaseCommandQueue(commandQueue);
-        clReleaseContext(context);
 
         return maxValue;
     }
 
     public static int[] getPowerLevels(int gridSerial)
     {
-        // Init OpenCl
-        setupOpenCL();
+        /*// Init OpenCl
+        setupOpenCL();*/
 
-        int[] fieldArray = new int[300*300];
         int[] resultArray = new int[300*300];
-        Pointer fieldPointer = Pointer.to(fieldArray);
         Pointer resultPointer = Pointer.to(resultArray);
 
         // Allocate the memory objects for the input- and output data
-        cl_mem memObjects[] = new cl_mem[2];
+        cl_mem memObjects[] = new cl_mem[1];
         memObjects[0] = clCreateBuffer(context,
-                CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                Sizeof.cl_int * 300 * 300, fieldPointer, null);
-        memObjects[1] = clCreateBuffer(context,
                 CL_MEM_WRITE_ONLY,
                 Sizeof.cl_int * 300 * 300, null, null);
 
@@ -175,28 +172,23 @@ public class OpenCLHelper
                 Sizeof.cl_mem, Pointer.to(memObjects[0]));
         clSetKernelArg(kernel, 1,
                 Sizeof.cl_uint, Pointer.to(new int[]{gridSerial}));
-        clSetKernelArg(kernel, 2,
-                Sizeof.cl_mem, Pointer.to(memObjects[1]));
 
         // Set the work-item dimensions
         long global_work_size[] = new long[]{300*300};
-        long local_work_size[] = new long[]{1};
+        long local_work_size[] = new long[]{150};
 
         // Execute the kernel
         clEnqueueNDRangeKernel(commandQueue, kernel, 1, null,
                 global_work_size, local_work_size, 0, null, null);
 
         // Read the output data
-        clEnqueueReadBuffer(commandQueue, memObjects[1], CL_TRUE, 0,
+        clEnqueueReadBuffer(commandQueue, memObjects[0], CL_TRUE, 0,
                 Sizeof.cl_int * 300 * 300, resultPointer, 0, null, null);
 
         // Release kernel, program, and memory objects
         clReleaseMemObject(memObjects[0]);
-        clReleaseMemObject(memObjects[1]);
         clReleaseKernel(kernel);
         clReleaseProgram(program);
-        clReleaseCommandQueue(commandQueue);
-        clReleaseContext(context);
 
         return resultArray;
     }
