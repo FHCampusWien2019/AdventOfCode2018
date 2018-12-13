@@ -4,7 +4,7 @@ __kernel void powerKernel(__global int *result,
     int gid = get_group_id(0);
     int lid = get_local_id(0);
     int field_size = 300;
-    int x = lid + (150 * (gid % 2));
+    int x = lid + (150 * (gid & 1));
     int y = gid / 2;
     int rack_id = x + 10;
 

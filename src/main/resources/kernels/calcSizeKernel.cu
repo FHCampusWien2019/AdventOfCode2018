@@ -2,20 +2,23 @@ __kernel void sizeKernel(__global const int *field,
                            const uint size,
                            __global int *result)
 {
-    int gid = get_global_id(0);
+    int gid = get_group_id(0);
+    int lid = get_local_id(0);
     int field_size = 300;
+    int x = lid + (150 * (gid & 1));
+    int y = gid / 2;
 
-    int x_max = min((uint) (gid % field_size) + size, (uint) 300);
-    int y_max = min((uint) (gid / field_size) + size, (uint) 300);
+    int x_max = min((uint) x + size, (uint) 300);
+    int y_max = min((uint) y + size, (uint) 300);
     int sum = 0;
 
-    for (int x = gid % field_size; x < x_max; x++)
+    for (int i = y; i < y_max; i++)
     {
-        for (int y = gid / field_size; y < y_max; y++)
+        for (int j = x; j < x_max; j++)
         {
-            sum += field[x + y * field_size];
+            sum += field[j + i * field_size];
         }
     }
 
-    result[gid] = sum;
+    result[x + y * field_size] = sum;
 }

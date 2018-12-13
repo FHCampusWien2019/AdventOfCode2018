@@ -12,6 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /*
 Yet another disclaimer: I'm not that happy with this code, since it's basically an O(n^5) (it takes part two well over
 1 minute) solution that is a bit camouflaged by threading. Will try to make this better after midterms.
+Ok small update, I managed to use OpenCL to get this down to about 3 secs on my desktop. Will try to minimize
+data transfer to use even less time.
  */
 @AlternativeMethod(alternatives = {"opencl"})
 public class Day11Challenge1 extends Challenge

@@ -103,7 +103,7 @@ public class OpenCLHelper
 
         // Set the work-item dimensions
         long global_work_size[] = new long[]{300*300};
-        long local_work_size[] = new long[]{1};
+        long local_work_size[] = new long[]{150};
 
         // Loop over all sizes
         for (; currentSize <= endSearch; currentSize++)
