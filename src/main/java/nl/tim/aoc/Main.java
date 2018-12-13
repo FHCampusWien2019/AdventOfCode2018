@@ -7,6 +7,7 @@ import nl.tim.aoc.day11.Day11Challenge1;
 import nl.tim.aoc.day11.Day11Challenge2;
 import nl.tim.aoc.day12.Day12Challenge1;
 import nl.tim.aoc.day12.Day12Challenge2;
+import nl.tim.aoc.day13.Day13Challenge1;
 import nl.tim.aoc.day2.Day2Challenge1;
 import nl.tim.aoc.day2.Day2Challenge2;
 import nl.tim.aoc.day3.Day3Challenge1;
@@ -140,6 +141,7 @@ public class Main
         challenges.put("11-2", new Day11Challenge2());
         challenges.put("12-1", new Day12Challenge1());
         challenges.put("12-2", new Day12Challenge2());
+        challenges.put("13-1", new Day13Challenge1());
     }
 
     public static List<String> readFile(String fileName)
