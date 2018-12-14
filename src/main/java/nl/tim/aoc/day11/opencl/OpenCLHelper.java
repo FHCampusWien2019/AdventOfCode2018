@@ -6,12 +6,17 @@ import org.jocl.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.jocl.CL.*;
 
 public class OpenCLHelper
 {
+    //TODO: Add something to select device
     private static final int platformIndex = 0;
     private static final long deviceType = CL_DEVICE_TYPE_GPU;
     private static final int deviceIndex = 0;
@@ -45,6 +50,7 @@ public class OpenCLHelper
 
         // Obtain a device ID
         cl_device_id devices[] = new cl_device_id[numDevices];
+
         clGetDeviceIDs(platform, deviceType, numDevices, devices, null);
         cl_device_id device = devices[deviceIndex];
 
@@ -213,14 +219,5 @@ public class OpenCLHelper
         }
 
         return builder.toString().trim();
-    }
-
-
-
-    public static void main(String args[])
-    {
-        int[] field = getPowerLevels(2187);
-        System.out.println(Arrays.toString(field));
-        System.out.println(Arrays.toString(getBestArea(field, 1, 300)));
     }
 }

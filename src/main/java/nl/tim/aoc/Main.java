@@ -8,6 +8,9 @@ import nl.tim.aoc.day11.Day11Challenge2;
 import nl.tim.aoc.day12.Day12Challenge1;
 import nl.tim.aoc.day12.Day12Challenge2;
 import nl.tim.aoc.day13.Day13Challenge1;
+import nl.tim.aoc.day13.Day13Challenge2;
+import nl.tim.aoc.day14.Day14Challenge1;
+import nl.tim.aoc.day14.Day14Challenge2;
 import nl.tim.aoc.day2.Day2Challenge1;
 import nl.tim.aoc.day2.Day2Challenge2;
 import nl.tim.aoc.day3.Day3Challenge1;
@@ -66,18 +69,21 @@ public class Main
             // Check if challenge has an alternative solution
             if (clazz.isAnnotationPresent(AlternativeMethod.class))
             {
+                AlternativeMethod alternativeMethods = clazz.getAnnotation(AlternativeMethod.class);
+
                 System.out.printf("This solution has alternative ways to handle this challenge.%n" +
                         "Type the name of the alternative method, or 'default' to use the default method:%n" +
-                        " - default%n");
-
-                AlternativeMethod alternativeMethods = clazz.getAnnotation(AlternativeMethod.class);
+                        " - default " + (alternativeMethods.recommended().equals("default") ? "(recommended)" : "")+ "%n");
 
                 selectMethod:
                 while (true)
                 {
                     for (String alternative : alternativeMethods.alternatives())
                     {
-                        System.out.printf(" - %s%n", alternative);
+                        System.out.printf(" - %s%n",
+                                alternative +
+                                        (alternative.equals(alternativeMethods.recommended()) ? " (recommended)" : "")
+                        );
                     }
 
                     String in = scanner.nextLine();
@@ -117,6 +123,7 @@ public class Main
 
     private static void registerChallenges()
     {
+        // This looked better in my mind when I thought of this, may need to refactor this
         challenges.put("1-1", new Day1Challenge1());
         challenges.put("1-2", new Day1Challenge2());
         challenges.put("2-1", new Day2Challenge1());
@@ -142,6 +149,9 @@ public class Main
         challenges.put("12-1", new Day12Challenge1());
         challenges.put("12-2", new Day12Challenge2());
         challenges.put("13-1", new Day13Challenge1());
+        challenges.put("13-2", new Day13Challenge2());
+        challenges.put("14-1", new Day14Challenge1());
+        challenges.put("14-2", new Day14Challenge2());
     }
 
     public static List<String> readFile(String fileName)

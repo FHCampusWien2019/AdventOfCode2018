@@ -4,7 +4,7 @@ import nl.tim.aoc.AlternativeMethod;
 import nl.tim.aoc.Challenge;
 import nl.tim.aoc.day11.opencl.OpenCLHelper;
 
-@AlternativeMethod(alternatives = {"opencl"})
+@AlternativeMethod(recommended = "opencl", alternatives = {"opencl"})
 public class Day11Challenge2 extends Challenge {
     private Day11Challenge1 base;
 

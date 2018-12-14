@@ -13,6 +13,15 @@ public class Day13Challenge1 extends Challenge
     private int xMax;
     private int yMax;
 
+    /* For your reading pleasure */
+    private final int SLASH = 15;
+    private final int BACKSLASH = 60;
+    private final int PLUS = 11;
+    private final int RIGHT = 30;
+    private final int LEFT = 28;
+    private final int DOWN = 86;
+    private final int UP = 62;
+
     @Override
     public void prepare()
     {
@@ -31,10 +40,10 @@ public class Day13Challenge1 extends Challenge
             {
                 int id = ((int) s.charAt(x)) - 32;
 
-                if (id == 30 || id == 28 || id == 86 || id == 62)
+                if (id == RIGHT || id == LEFT || id == DOWN || id == UP)
                 {
                     carts.put(x + y * xMax, id);
-                    id += id == 30 ? -17 : id == 28 ? -15 : id == 86 ? 6 : 30;
+                    id += id == RIGHT ? -17 : id == LEFT ? -15 : id == DOWN ? 6 : RIGHT;
                 }
 
                 field[x + y * xMax] = id;
@@ -60,24 +69,15 @@ public class Day13Challenge1 extends Challenge
 
             i += 5;
         }
-
-        System.out.println((int) ' ' - 32); // 0
-        System.out.println((int) '|' - 32); // 92 (+6 & +30)
-        System.out.println((int) '/' - 32); // 15
-        System.out.println((int) '\\' - 32); // 60
-        System.out.println((int) '+' - 32); // 11
-        System.out.println((int) '-' - 32); // 13 (-17 & -15)
-
-        System.out.println((int) '>' - 32); // 30
-        System.out.println((int) '<' - 32); // 28
-        System.out.println((int) 'v' - 32); // 86
-        System.out.println((int) '^' - 32); // 62
-        System.out.println(Arrays.toString(field));
-        System.out.println(Arrays.toString(this.carts));
     }
 
     @Override
     public Object run(String alternative)
+    {
+        return simulate(true);
+    }
+
+    protected String simulate(boolean firstCrash)
     {
         List<Integer> done = new ArrayList<>();
 
@@ -91,11 +91,16 @@ public class Day13Challenge1 extends Challenge
 
                     if (i != -1 && !done.contains(carts[i + 4]))
                     {
+                        if (cartsLeft() == 1)
+                        {
+                            return x + "," + y;
+                        }
+
                         int spot = field[x + y * xMax];
                         int type = carts[i + 3];
 
                         // Crossing
-                        if (spot == 11)
+                        if (spot == PLUS)
                         {
                             int move = getMove(i);
 
@@ -105,38 +110,50 @@ public class Day13Challenge1 extends Challenge
 
                                 switch (type)
                                 {
-                                    case 30:
-                                        newType = move == 0 ? 62 : 86;
+                                    case RIGHT:
+                                        newType = move == 0 ? UP : DOWN;
                                         break;
-                                    case 28:
-                                        newType = move == 0 ? 86 : 62;
+                                    case LEFT:
+                                        newType = move == 0 ? DOWN : UP;
                                         break;
-                                    case 86:
-                                        newType = move == 0 ? 30 : 28;
+                                    case DOWN:
+                                        newType = move == 0 ? RIGHT : LEFT;
                                         break;
                                     default:
-                                        newType = move == 0 ? 28 : 30;
+                                        newType = move == 0 ? LEFT : RIGHT;
                                         break;
                                 }
 
                                 carts[i + 3] = newType;
                             }
-                        } else if (spot == 15)
+                        } else if (spot == SLASH)
                         {
-                            carts[i + 3] = type == 62 ? 30 : type == 30 ? 62 : type == 28 ? 86 : 28;
-                        } else if (spot == 60)
+                            carts[i + 3] = type == UP ? RIGHT : type == RIGHT ? UP : type == LEFT ? DOWN : LEFT;
+                        } else if (spot == BACKSLASH)
                         {
-                            carts[i + 3] = type == 62 ? 28 : type == 30 ? 86 : type == 28 ? 62 : 30;
+                            carts[i + 3] = type == UP ? LEFT : type == RIGHT ? DOWN : type == LEFT ? UP : RIGHT;
                         }
 
                         type = carts[i + 3];
-                        int newY = y + (type == 86 ? 1 : type == 62 ? -1 : 0);
-                        int newX = x + (type == 28 ? -1 : type == 30 ? 1 : 0);
+                        int newY = y + (type == DOWN ? 1 : type == UP ? -1 : 0);
+                        int newX = x + (type == LEFT ? -1 : type == RIGHT ? 1 : 0);
 
                         // Check if a crash would happen
-                        if (getCart(newX, newY) != -1)
+                        int indexNewLoc = getCart(newX, newY);
+                        if (indexNewLoc != -1)
                         {
-                            return newX + "," + newY;
+                            if (firstCrash)
+                            {
+                                // Found first crash
+                                return newX + "," + newY;
+                            } else
+                            {
+                                // Remove carts
+                                carts[i] = -1;
+                                carts[indexNewLoc] = -1;
+
+                                continue;
+                            }
                         }
 
                         carts[i] = newX;
@@ -150,7 +167,19 @@ public class Day13Challenge1 extends Challenge
         }
     }
 
-    public int getMove(int i)
+    private int cartsLeft()
+    {
+        int count = 0;
+
+        for (int i = 0; i < carts.length; i += 5)
+        {
+            count += carts[i] != -1 ? 1 : 0;
+        }
+
+        return count;
+    }
+
+    private int getMove(int i)
     {
         int move = carts[i + 2];
 
@@ -159,7 +188,7 @@ public class Day13Challenge1 extends Challenge
         return move;
     }
 
-    public int getCart(int x, int y)
+    private int getCart(int x, int y)
     {
         for (int i = 0; i < carts.length; i += 5)
         {
