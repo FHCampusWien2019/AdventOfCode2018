@@ -11,6 +11,8 @@ import nl.tim.aoc.day13.Day13Challenge1;
 import nl.tim.aoc.day13.Day13Challenge2;
 import nl.tim.aoc.day14.Day14Challenge1;
 import nl.tim.aoc.day14.Day14Challenge2;
+import nl.tim.aoc.day15.Day15Challenge1;
+import nl.tim.aoc.day15.Day15Challenge2;
 import nl.tim.aoc.day2.Day2Challenge1;
 import nl.tim.aoc.day2.Day2Challenge2;
 import nl.tim.aoc.day3.Day3Challenge1;
@@ -152,6 +154,8 @@ public class Main
         challenges.put("13-2", new Day13Challenge2());
         challenges.put("14-1", new Day14Challenge1());
         challenges.put("14-2", new Day14Challenge2());
+        challenges.put("15-1", new Day15Challenge1());
+        challenges.put("15-2", new Day15Challenge2());
     }
 
     public static List<String> readFile(String fileName)
